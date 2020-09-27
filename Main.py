@@ -91,29 +91,17 @@ def get_illegal_move(move):
     return [move[1], move[0], move[2]]
 
 
-def copy_list(list_to_copy):
-    new_list = []
-
-    for i in range(len(list_to_copy)):
-        row = []
-        for j in range(len(list_to_copy[i])):
-            row.append(list_to_copy[i][j])
-        new_list.append(row)
-
-    return new_list
-
-
 def main(matrix, animate=True):
     first_move = True
     memory = []
     illegal_moves = []
-    matrices = [copy_list(matrix)]
+    matrices = [[[el for el in row] for row in matrix]]
 
     while not(not len(matrix[0]) and not len(matrix[1])):
         move = pick_correct_move(matrix, memory, illegal_moves, first_move)
         matrix = register_move(matrix, move)
         memory.append(move)
-        matrices.append(copy_list(matrix))
+        matrices.append([[el for el in row] for row in matrix])
         illegal_move = get_illegal_move(move)
 
         if illegal_move not in illegal_moves:
